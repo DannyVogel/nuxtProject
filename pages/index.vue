@@ -11,8 +11,8 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="mt-20 flex flex-col items-center gap-5 max-w-md mx-auto">
-    <h1 class="text-green-500">How dope is this</h1>
+  <div class="px-4 mt-20 flex flex-col items-center gap-5 max-w-md mx-auto">
+    <h1 class="text-green-500">Progress</h1>
     <UProgress :value="value" />
     <div v-auto-animate class="flex flex-col items-center gap-4">
       <UButton @click="value += 25" icon="i-heroicons-arrow-up">Add</UButton>
