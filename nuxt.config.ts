@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
+import { fileURLToPath, URL } from "url";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -8,17 +8,7 @@ export default defineNuxtConfig({
       script: [{ src: "/window.js" }, { src: "/bundle.js", type: "module" }],
     },
   },
-  vite: {
-    // define: {
-    //   global: "globalThis",
-    // },
-    // plugins: [
-    //   NodeGlobalsPolyfillPlugin({
-    //     process: true,
-    //     buffer: true,
-    //   }),
-    // ],
-  },
+  vite: {},
   plugins: ["~/plugins/web3auth.client.ts"],
   modules: [
     "@pinia/nuxt",
