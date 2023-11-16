@@ -28,6 +28,15 @@ const logOut = async () => {
     console.log(error);
   }
 };
+
+const getWid = async () => {
+  console.log("getWid");
+  try {
+    await Web3AuthController.getWid(nuxtApp.$provider);
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 
 <template>
@@ -49,5 +58,6 @@ const logOut = async () => {
     </div>
     <UButton color="blue" @click="logIn">Log In</UButton>
     <UButton color="red" @click="logOut">Log Out</UButton>
+    <UButton color="green" @click="getWid">Get Wid</UButton>
   </div>
 </template>

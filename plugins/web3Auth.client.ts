@@ -4,12 +4,12 @@ import { ref } from "vue";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
-import { CHAIN_NAMESPACES } from "@web3auth/base";
+import { CHAIN_NAMESPACES, type IProvider } from "@web3auth/base";
 import { defineNuxtPlugin } from "#app";
 
 export default defineNuxtPlugin((nuxtApp) => {
   if (!process.client) return;
-  const provider = ref(null);
+  const provider = ref<IProvider | null>(null);
 
   const chainConfig = {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
@@ -51,6 +51,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     try {
       await web3auth.init();
       provider.value = web3auth.provider;
+      console.log("provider", provider.value);
     } catch (error) {
       console.error(error);
     }

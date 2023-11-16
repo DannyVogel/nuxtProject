@@ -10,10 +10,11 @@ export default class Web3AuthController {
     provider.value = await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
       loginProvider: "google",
     });
-    console.log(provider.value);
+    console.log("connect provider", provider.value);
+    console.log("web3auth connected", web3auth.connected);
     if (web3auth.connected) {
-      await this.getWid();
-      await this.getUser();
+      await this.getWid(provider.value);
+      await this.getUser(web3auth);
     }
   }
 
@@ -21,17 +22,18 @@ export default class Web3AuthController {
     return await web3auth.logout();
   }
 
-  static async getUser() {
+  static async getUser(web3auth) {
     const userInfo = await web3auth.getUserInfo();
     return userInfo;
   }
 
   static async setWid(wid: string) {}
 
-  static async getWid(): Promise<string | null | undefined> {
-    if (!provider) return null;
+  static async getWid(provider): Promise<string | null | undefined> {
+    console.log("provider", provider, "provider.value", provider.value);
+    if (!provider.value) return null;
 
-    const wid: string | null | undefined = await provider.request({
+    const wid: string | null | undefined = await provider.value.request({
       method: "eth_private_key",
     });
     if (wid) console.log(wid);
