@@ -24,7 +24,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   // Initialize within setup()
   const web3auth = new Web3AuthNoModal({
     clientId:
-      "ec8629685c604c2f28a581d0f0b9212099d20e76821c1b0d22f34d64d8adfcd9", // Get your Client ID from the Web3Auth Dashboard
+      "BAk98waKQnfCnZRGY164QlKIrLRPfM6vYfe2LM7J7kO8rJV3wqz4WZsC9y5WVBjtiOsY2SJj6WD5z3uoFwWY7dw", // Get your Client ID from the Web3Auth Dashboard
     web3AuthNetwork: "sapphire_devnet", // Web3Auth Network
     chainConfig: chainConfig,
   });
