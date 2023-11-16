@@ -9,15 +9,15 @@ export default defineNuxtConfig({
     },
   },
   vite: {
-    define: {
-      global: "globalThis",
-    },
-    plugins: [
-      NodeGlobalsPolyfillPlugin({
-        process: true,
-        buffer: true,
-      }),
-    ],
+    // define: {
+    //   global: "globalThis",
+    // },
+    // plugins: [
+    //   NodeGlobalsPolyfillPlugin({
+    //     process: true,
+    //     buffer: true,
+    //   }),
+    // ],
   },
   plugins: ["~/plugins/web3auth.client.ts"],
   modules: [

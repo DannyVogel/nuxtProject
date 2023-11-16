@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import Web3AuthController from "../services/controllers/web3Auth.controller";
+
+const nuxtApp = useNuxtApp();
+
 const value = ref(0);
 
 watchEffect(() => {
@@ -8,6 +12,22 @@ watchEffect(() => {
     value.value = 0;
   }
 });
+const logIn = async () => {
+  console.log("logIn");
+  try {
+    await Web3AuthController.connect(nuxtApp.$web3auth, nuxtApp.$provider);
+  } catch (error) {
+    console.log(error);
+  }
+};
+const logOut = async () => {
+  console.log("logOut");
+  try {
+    await Web3AuthController.disconnect(nuxtApp.$web3auth);
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 
 <template>
@@ -27,5 +47,7 @@ watchEffect(() => {
         >Reset</UButton
       >
     </div>
+    <UButton color="blue" @click="logIn">Log In</UButton>
+    <UButton color="red" @click="logOut">Log Out</UButton>
   </div>
 </template>
