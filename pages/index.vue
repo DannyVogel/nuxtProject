@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import Web3AuthController from "../services/controllers/web3Auth.controller";
 
-const nuxtApp = useNuxtApp();
-
 const value = ref(0);
 
 watchEffect(() => {
@@ -15,7 +13,7 @@ watchEffect(() => {
 const logIn = async () => {
   console.log("logIn");
   try {
-    await Web3AuthController.connect(nuxtApp.$web3auth, nuxtApp.$provider);
+    await Web3AuthController.connect();
   } catch (error) {
     console.log(error);
   }
@@ -23,7 +21,7 @@ const logIn = async () => {
 const logOut = async () => {
   console.log("logOut");
   try {
-    await Web3AuthController.disconnect(nuxtApp.$web3auth);
+    await Web3AuthController.disconnect();
   } catch (error) {
     console.log(error);
   }
@@ -32,7 +30,7 @@ const logOut = async () => {
 const getWid = async () => {
   console.log("getWid");
   try {
-    await Web3AuthController.getWid(nuxtApp.$provider);
+    await Web3AuthController.getWid();
   } catch (error) {
     console.log(error);
   }

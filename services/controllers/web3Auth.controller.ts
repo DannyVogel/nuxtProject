@@ -4,36 +4,39 @@ import { WALLET_ADAPTERS } from "@web3auth/base";
 
 // const web3auth = inject("web3auth");
 // const provider = inject("provider");
-
 export default class Web3AuthController {
-  static async connect(web3auth, provider) {
-    provider.value = await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
+  static async connect() {
+    const nuxtApp = useNuxtApp();
+    nuxtApp.$provider.value = await nuxtApp.$web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
       loginProvider: "google",
     });
-    console.log("connect provider", provider.value);
-    console.log("web3auth connected", web3auth.connected);
-    if (web3auth.connected) {
-      await this.getWid(provider.value);
-      await this.getUser(web3auth);
+    console.log("connect provider", nuxtApp.$provider);
+    console.log("web3auth connected", nuxtApp.$web3auth.connected);
+    if (nuxtApp.$web3auth.connected) {
+      await this.getWid();
+      await this.getUser();
     }
   }
 
-  static async disconnect(web3auth) {
-    return await web3auth.logout();
+  static async disconnect() {
+    const nuxtApp = useNuxtApp();
+    return await nuxtApp.$web3auth.logout();
   }
 
-  static async getUser(web3auth) {
-    const userInfo = await web3auth.getUserInfo();
+  static async getUser() {
+    const nuxtApp = useNuxtApp();
+    const userInfo = await nuxtApp.$web3auth.getUserInfo();
     return userInfo;
   }
 
   static async setWid(wid: string) {}
 
-  static async getWid(provider): Promise<string | null | undefined> {
-    console.log("provider", provider, "provider.value", provider.value);
-    if (!provider.value) return null;
+  static async getWid(): Promise<string | null | undefined> {
+    const nuxtApp = useNuxtApp();
+    console.log("provider", nuxtApp.$provider, "nuxtApp.$provider", nuxtApp.$provider.value);
+    if (!nuxtApp.$provider.value) return null;
 
-    const wid: string | null | undefined = await provider.value.request({
+    const wid: string | null | undefined = await nuxtApp.$provider.value.request({
       method: "eth_private_key",
     });
     if (wid) console.log(wid);
